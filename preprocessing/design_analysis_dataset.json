@@ -1,0 +1,1890 @@
+{
+    "alu1": {
+        "functional_analysis": {
+            "module_name": "ALU",
+            "description": "32\u2011bit combinational ALU supporting arithmetic, logical, shift, and set\u2011less\u2011than operations. Includes carry, zero, overflow, and sign flags.",
+            "inputs": [
+                {
+                    "name": "opcode",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                },
+                {
+                    "name": "inst_25",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "sub",
+                "shift",
+                "mux",
+                "bitwise_and",
+                "bitwise_or",
+                "bitwise_xor",
+                "set_less_than_signed",
+                "set_less_than_unsigned"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "hybrid",
+            "style_characteristics": "Combines behavioral always block with case statement for result selection and continuous assignments for flags and intermediate signals. Uses localparams for operation codes and purely combinational logic.",
+            "optimizations_present": [
+                "parameterization via localparams",
+                "combinational design for low latency"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "4858.541 (units unspecified, likely \u00b5m\u00b2)",
+            "power": "2.22052e-04 W",
+            "gate_count": "957",
+            "overall_efficiency": "highly optimized",
+            "correlations": "Area and power scale directly with gate count; low power due to small combinational logic and absence of clocked elements.",
+            "potential_improvements": [
+                "Remove unused inputs (opcode, inst_25) to reduce area",
+                "Parameterize data width for reuse",
+                "Replace ripple\u2011carry adder with carry\u2011lookahead for higher speed if needed",
+                "Use dedicated shift cells to reduce logic depth"
+            ]
+        }
+    },
+    "alu10": {
+        "functional_analysis": {
+            "module_name": "alu10",
+            "description": "32-bit arithmetic and shift ALU supporting addition, subtraction, increment, decrement, logical/arithmatic shifts, rotate left, and max/min comparisons.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "input"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "input"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "output reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "output wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "increment",
+                "decrement",
+                "shift left logical",
+                "shift right logical",
+                "shift right arithmetic",
+                "rotate left",
+                "max",
+                "min",
+                "carry detection",
+                "overflow detection"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "hybrid",
+            "style_characteristics": "combination of behavioral always block with case statement, continuous assignments, and a function for rotate left; uses localparams for opcode definitions.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "7887.655",
+            "power": "3.50715e-04",
+            "gate_count": "unknown",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are correlated; combinational logic yields low dynamic power but moderate area.",
+            "potential_improvements": [
+                "Implement a barrel shifter for shift operations to reduce area and delay",
+                "Add pipelining to reduce combinational delay and increase clock frequency",
+                "Apply clock gating to reduce dynamic power",
+                "Use a smaller library or optimize logic synthesis constraints"
+            ]
+        }
+    },
+    "alu11": {
+        "functional_analysis": {
+            "module_name": "alu11",
+            "description": "32-bit ALU supporting addition, subtraction, multiplication, rotate left/right, negate, absolute, maximum, and minimum operations.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "input"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "input"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "sub",
+                "mul",
+                "rol",
+                "ror",
+                "neg",
+                "abs",
+                "max",
+                "min"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational logic implemented with an always @(*) block and a case statement; uses localparams for operation codes and functions for rotate operations.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "16091.694",
+            "power": "0.000674089",
+            "gate_count": "2439",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are directly proportional; the small combinational design results in low power consumption.",
+            "potential_improvements": [
+                "Add pipelining to increase throughput for high-frequency operation",
+                "Replace the 32x32 multiplier with a DSP block or a smaller-width multiplier if full width is not required",
+                "Apply logic optimization to reduce cell count and area",
+                "Introduce clock gating if the design is later made sequential",
+                "Parameterize operand width to support different data sizes"
+            ]
+        }
+    },
+    "alu12": {
+        "functional_analysis": {
+            "module_name": "alu12",
+            "description": "32\u2011bit ALU that performs shift, logic, and max/min operations based on a 4\u2011bit selector.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "shift",
+                "logic",
+                "max/min",
+                "conditional assignment"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with a case statement, localparam op codes, and continuous assignments for status flags.",
+            "optimizations_present": []
+        },
+        "efficiency_analysis": {
+            "area": "4688.239",
+            "power": "2.56924e-04",
+            "gate_count": "unknown",
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power indicate efficient use of library cells; leakage is negligible.",
+            "potential_improvements": [
+                "Add parameterization for operand width to reuse the module for smaller data paths.",
+                "Introduce clock gating or pipelining if timing constraints require it.",
+                "Replace the max/min logic with a priority encoder or a smaller comparator tree to reduce logic depth.",
+                "Consider using a dedicated shift cell or barrel shifter to reduce area for shift operations."
+            ]
+        }
+    },
+    "alu13": {
+        "functional_analysis": {
+            "module_name": "alu13",
+            "description": "Arithmetic and comparison ALU supporting addition, subtraction, signed/unsigned less\u2011than, equality, inequality, and max/min operations.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "sub",
+                "compare",
+                "mux"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with case statement, localparam parameterization, no explicit structural instantiation.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "4442.246",
+            "power": "2.10229e-04",
+            "gate_count": "802",
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power are consistent with a small combinational logic block; gate count is modest for a 32\u2011bit ALU.",
+            "potential_improvements": [
+                "Remove unused shiftValue input to reduce pin count",
+                "Add clock gating or pipelining for higher clock rates",
+                "Consider separate modules for comparison to reduce combinational fan\u2011out",
+                "Use narrower flag wires if possible to save area"
+            ]
+        }
+    },
+    "alu14": {
+        "functional_analysis": {
+            "module_name": "alu14",
+            "description": "32\u2011bit ALU supporting addition, subtraction, multiplication, rotate left/right, logical AND/OR/XOR, and max/min comparisons.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "input"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "input"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "output reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "output wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "multiply",
+                "rotate left",
+                "rotate right",
+                "logical AND",
+                "logical OR",
+                "logical XOR",
+                "max",
+                "min"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with case statement, localparam opcode definitions, and helper functions for rotate operations.",
+            "optimizations_present": [
+                "parameterization (localparam opcodes)",
+                "function abstraction for rotate",
+                "combinational logic only (no clocked registers)"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "15816.939 (technology units)",
+            "power": "6.68592e-04 W",
+            "gate_count": "2445 cells",
+            "overall_efficiency": "average",
+            "correlations": "Area scales with the number of combinational operations; power is dominated by logic switching activity (~38%).",
+            "potential_improvements": [
+                "Use a dedicated DSP block for multiplication to reduce area and power.",
+                "Implement rotate using a barrel shifter to lower combinational depth.",
+                "Add clock gating or pipelining to reduce dynamic power.",
+                "Parameterize bit\u2011width to allow smaller instances for lower resource usage."
+            ]
+        }
+    },
+    "alu15": {
+        "functional_analysis": {
+            "module_name": "alu15",
+            "description": "32\u2011bit arithmetic and logic unit supporting addition, subtraction, logical AND/OR/XOR, increment/decrement, maximum/minimum selection, and flag generation (carry, zero, overflow, sign).",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "sub",
+                "and",
+                "or",
+                "xor",
+                "max",
+                "min",
+                "inc",
+                "dec"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with case statement, localparam opcode definitions, and separate flag assignments. No clocked logic or pipelining.",
+            "optimizations_present": [
+                "parameterization (localparam opcodes)",
+                "combinational logic reuse (sum33 wire for add/sub)",
+                "flag generation via continuous assignments"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "4260.590",
+            "power": "4.19137e-04",
+            "gate_count": "unknown",
+            "overall_efficiency": "average",
+            "correlations": "Area is dominated by the combinational logic for add/sub and comparison operations; power is largely switching power (~62%) with negligible leakage.",
+            "potential_improvements": [
+                "Remove unused shiftValue input to reduce synthesis noise",
+                "Implement max/min using a single comparator and mux to reduce logic",
+                "Add pipelining or clock gating to lower dynamic power",
+                "Use a smaller or optimized library to reduce area",
+                "Replace the always @(*) block with a dataflow expression for simpler synthesis"
+            ]
+        }
+    },
+    "alu16": {
+        "functional_analysis": {
+            "module_name": "alu16",
+            "description": "32\u2011bit combinational ALU supporting addition, subtraction, logical AND/OR, maximum/minimum comparison, count leading zeros (CLZ), count trailing zeros (CTZ), and flag generation (carry, zero, overflow, sign).",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "bitwise_and",
+                "bitwise_or",
+                "max",
+                "min",
+                "count_leading_zeros",
+                "count_trailing_zeros",
+                "mux",
+                "comparison",
+                "conditional_assignment"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with case statement, use of localparams for operation codes, loops for CLZ/CTZ, and conditional (ternary) assignments. No structural instantiation or pipelining.",
+            "optimizations_present": [
+                "parameterization",
+                "conditional_assignment",
+                "loop_unrolling_potential"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "4642.068",
+            "power": "0.000270745",
+            "gate_count": "unknown",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are modest for a 32\u2011bit combinational ALU; low power is due to absence of clock gating and the use of a small library. The area is typical for a simple behavioral implementation.",
+            "potential_improvements": [
+                "Replace CLZ/CTZ loops with priority\u2011encoder logic to reduce area and improve timing.",
+                "Remove unused shiftValue input to simplify the interface.",
+                "Add pipelining or clock gating to reduce dynamic power.",
+                "Use a carry\u2011lookahead or carry\u2011select adder for faster addition/subtraction.",
+                "Parameterize data width to allow reuse for different operand sizes."
+            ]
+        }
+    },
+    "alu17": {
+        "functional_analysis": {
+            "module_name": "alu17",
+            "description": "32\u2011bit ALU that performs addition, subtraction, logical and arithmetic shifts, rotate left/right, and maximum comparison. It also generates status flags for carry, zero, overflow, and sign.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "shift left logical",
+                "shift right logical",
+                "shift right arithmetic",
+                "rotate left",
+                "rotate right",
+                "max comparison"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "hybrid",
+            "style_characteristics": "Combinational always block with case statement, localparam opcode definitions, and helper functions for rotate operations. No explicit structural instantiation of gates or modules.",
+            "optimizations_present": []
+        },
+        "efficiency_analysis": {
+            "area": "7462.277",
+            "power": "3.68128e-04",
+            "gate_count": "unknown",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are modest for a 32\u2011bit combinational ALU; low power is due to absence of clocked logic.",
+            "potential_improvements": [
+                "Replace custom rotate functions with built\u2011in primitives or optimized shift/rotate primitives to reduce logic depth.",
+                "Parameterize data width to allow reuse for smaller widths, reducing area.",
+                "Use a smaller or faster library to lower area and leakage.",
+                "Add pipelining or clock gating if sequential operation is acceptable to reduce dynamic power."
+            ]
+        }
+    },
+    "alu18": {
+        "functional_analysis": {
+            "module_name": "alu18",
+            "description": "32\u2011bit ALU that supports increment, decrement, logical AND/OR/XOR, addition, subtraction, and maximum/minimum selection. It also generates status flags for carry, zero, overflow, and sign.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "input"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "input"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "output reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "output wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "increment",
+                "decrement",
+                "AND",
+                "OR",
+                "XOR",
+                "MAX",
+                "MIN"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "hybrid",
+            "style_characteristics": "Combinational logic implemented with a behavioral always block and continuous assignments. Uses localparam for operation codes and a 33\u2011bit adder for overflow detection.",
+            "optimizations_present": [
+                "parameterization (localparam)",
+                "overflow detection via extended adder",
+                "combinational case statement for efficient routing"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": 4322.656,
+            "power": 0.000416553,
+            "gate_count": "unknown",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are directly proportional; the 33\u2011bit adder and status\u2011flag logic increase both metrics.",
+            "potential_improvements": [
+                "Remove unused shiftValue input to reduce pin count and synthesis complexity.",
+                "Replace explicit MAX/MIN logic with built\u2011in max/min functions or a single comparator to reduce gate count.",
+                "Use a smaller adder (32\u2011bit) with separate carry\u2011out logic for overflow to save area.",
+                "Add clock gating or register the result if sequential operation is required to reduce dynamic power.",
+                "Parameterize operand width to allow reuse for smaller data paths."
+            ]
+        }
+    },
+    "alu19": {
+        "functional_analysis": {
+            "module_name": "alu19",
+            "description": "32-bit ALU supporting addition, subtraction, rotate left/right, negate, absolute value, maximum, and minimum operations with flag outputs.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "input"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "input"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "output reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "output wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "output wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "rotate left",
+                "rotate right",
+                "negate",
+                "absolute",
+                "max",
+                "min"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational logic implemented with an always @(*) block and a case statement; uses localparam for operation codes, functions for rotate operations, and continuous assignments for flag generation.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "7341.173",
+            "power": "3.56987e-04",
+            "gate_count": "1434",
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power are directly correlated with the small combinational gate count (1434 cells).",
+            "potential_improvements": [
+                "Replace rotate logic with dedicated rotate primitives to reduce gate count.",
+                "Implement max/min using a priority encoder or comparator tree to lower logic depth.",
+                "Consider pipelining the ALU for higher clock frequencies.",
+                "Explore a smaller technology node or a more area\u2011efficient library."
+            ]
+        }
+    },
+    "alu2": {
+        "functional_analysis": {
+            "module_name": "alu_32bit",
+            "description": "32\u2011bit arithmetic logic unit supporting addition, subtraction, logical operations, set\u2011less\u2011than, shifts, and rotations, with Zero, CarryOut, and Overflow flags.",
+            "inputs": [
+                {
+                    "name": "A",
+                    "width": "32",
+                    "type": "operand"
+                },
+                {
+                    "name": "B",
+                    "width": "32",
+                    "type": "operand"
+                },
+                {
+                    "name": "ALU_Sel",
+                    "width": "4",
+                    "type": "control"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "ALU_Out",
+                    "width": "32",
+                    "type": "result"
+                },
+                {
+                    "name": "Zero",
+                    "width": "1",
+                    "type": "flag"
+                },
+                {
+                    "name": "CarryOut",
+                    "width": "1",
+                    "type": "flag"
+                },
+                {
+                    "name": "Overflow",
+                    "width": "1",
+                    "type": "flag"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "and",
+                "or",
+                "xor",
+                "nor",
+                "set less than",
+                "shift left",
+                "shift right",
+                "rotate left",
+                "rotate right"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with a case statement; uses conditional continuous assignment for carry/overflow calculation; no explicit structural instantiation.",
+            "optimizations_present": []
+        },
+        "efficiency_analysis": {
+            "area": "3349.282",
+            "power": "1.89324e-04",
+            "gate_count": "544",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are directly correlated; the combinational nature of the ALU results in moderate switching activity, leading to the observed power consumption.",
+            "potential_improvements": [
+                "Parameterize operand width to support multiple sizes without code duplication.",
+                "Introduce pipelining or clock gating to reduce dynamic power.",
+                "Replace the simple adder/subtractor with a carry\u2011lookahead or carry\u2011select adder for lower latency and potentially smaller area.",
+                "Implement rotate operations using a barrel shifter to reduce logic depth.",
+                "Use a more efficient NOR implementation (e.g., via NAND and NOT) to reduce gate count.",
+                "Add a dedicated overflow detection circuit that reuses existing carry logic."
+            ]
+        }
+    },
+    "alu20": {
+        "functional_analysis": {
+            "module_name": "alu20",
+            "description": "32\u2011bit full\u2011feature ALU supporting 16 operations including arithmetic, logical, shift/rotate, comparison, and increment/decrement.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "multiply",
+                "divide",
+                "and",
+                "or",
+                "xor",
+                "nor",
+                "rotate left",
+                "rotate right",
+                "max",
+                "min",
+                "negate",
+                "absolute",
+                "increment",
+                "decrement"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always @(*) block with a case statement, localparam opcodes, and helper functions for rotate operations. No structural instantiation or pipelining.",
+            "optimizations_present": [
+                "parameterization of operation codes via localparam",
+                "use of functions for concise rotate logic",
+                "conditional assignment for carry and overflow flags"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": 30655.963,
+            "power": 0.00128241,
+            "gate_count": 4170,
+            "overall_efficiency": "average",
+            "correlations": "Area and power are directly correlated; the high gate count contributes to moderate leakage and switching power.",
+            "potential_improvements": [
+                "Introduce pipelining to reduce combinational depth and allow higher clock frequencies",
+                "Replace the 32\u2011bit multiplier with a smaller, more area\u2011efficient implementation or a signed/unsigned optimized multiplier",
+                "Add clock gating to idle logic blocks to reduce dynamic power",
+                "Parameterize the ALU width to allow synthesis for smaller bit\u2011widths when full 32\u2011bit is not required",
+                "Use a smaller library or low\u2011power cells for the majority of logic gates"
+            ]
+        }
+    },
+    "alu21": {
+        "functional_analysis": {
+            "module_name": "alu21",
+            "description": "32\u2011bit combinational ALU supporting addition, subtraction, saturating add/sub, logical AND/OR/XOR, and MAX/MIN operations. Generates carry, zero, overflow, and sign flags.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "saturate",
+                "logical_and",
+                "logical_or",
+                "logical_xor",
+                "max",
+                "min",
+                "mux"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "hybrid",
+            "style_characteristics": "Behavioral constructs (case statement, function) combined with combinational always block. Uses localparam for operation codes and a function for saturation logic.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": 4606.493,
+            "power": 0.000432422,
+            "gate_count": 849,
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power consumption indicate efficient use of combinational logic; the small gate count (849) and modest area (4606.493) correlate with the lightweight design.",
+            "potential_improvements": [
+                "Remove unused shiftValue input to reduce pin count and synthesis noise.",
+                "Replace the max/min comparisons with a priority encoder or use built\u2011in max/min primitives to reduce logic depth.",
+                "Parameterize operand width to allow reuse for smaller data paths.",
+                "Optimize the saturate function to avoid redundant bit\u2011width checks.",
+                "Consider pipelining or clock gating if the ALU is used in a high\u2011frequency datapath."
+            ]
+        }
+    },
+    "alu22": {
+        "functional_analysis": {
+            "module_name": "alu22_max",
+            "description": "32\u2011bit combinational ALU supporting arithmetic, logical, shift, rotate, max/min, CLZ/CTZ, division, multiplication, and comparison operations.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "sub",
+                "and",
+                "or",
+                "xor",
+                "nor",
+                "nand",
+                "shift left",
+                "shift right",
+                "shift arithmetic",
+                "rotate left",
+                "max",
+                "min",
+                "clz",
+                "ctz",
+                "mul",
+                "div",
+                "slt",
+                "sltu"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational logic expressed with always @(*) blocks, a case statement for operation selection, and a function for rotate. Uses localparam for opcode encoding and loops for CLZ/CTZ.",
+            "optimizations_present": [
+                "parameterization (localparams)",
+                "function abstraction for rotate",
+                "combinational case for efficient operation selection"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "28364.070 (\u00b5m\u00b2)",
+            "power": "1.54564e-03 W",
+            "gate_count": "3792",
+            "overall_efficiency": "average",
+            "correlations": "Area is driven by the large number of supported operations; power is dominated by logic switching in the combinational ALU. The lack of pipelining keeps area moderate but limits throughput.",
+            "potential_improvements": [
+                "Add pipelining or clock gating to reduce dynamic power",
+                "Replace CLZ/CTZ loops with dedicated hardware or built\u2011in primitives",
+                "Use smaller cells or optimize multiplier implementation",
+                "Parameterize bit\u2011width to allow reuse for smaller ALUs",
+                "Consider a hierarchical design to separate arithmetic and logical blocks"
+            ]
+        }
+    },
+    "alu23": {
+        "functional_analysis": {
+            "module_name": "alu_0001_W64_2d3c_czo_NP",
+            "description": "A 64\u2011bit combinational ALU that performs equality, shift, multiplication, conditional negation, division, and comparison based on a 3\u2011bit opcode.",
+            "inputs": [
+                {
+                    "name": "a",
+                    "width": "64",
+                    "type": "wire"
+                },
+                {
+                    "name": "b",
+                    "width": "64",
+                    "type": "wire"
+                },
+                {
+                    "name": "opcode",
+                    "width": "3",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "64",
+                    "type": "reg"
+                },
+                {
+                    "name": "carry",
+                    "width": "1",
+                    "type": "reg"
+                },
+                {
+                    "name": "zero",
+                    "width": "1",
+                    "type": "reg"
+                },
+                {
+                    "name": "overflow",
+                    "width": "1",
+                    "type": "reg"
+                }
+            ],
+            "key_operations": [
+                "compare",
+                "shift",
+                "multiply",
+                "division",
+                "conditional",
+                "arithmetic"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with blocking assignments, case statement for opcode decoding, no clock or reset, purely combinational logic.",
+            "optimizations_present": []
+        },
+        "efficiency_analysis": {
+            "area": "93117.620",
+            "power": "3.92164e-03",
+            "gate_count": "10363",
+            "overall_efficiency": "average",
+            "correlations": "Large combinational logic (multiplication/division) drives both area and dynamic power; the absence of pipelining or clock gating keeps power high.",
+            "potential_improvements": [
+                "Introduce pipelining to reduce combinational depth and allow lower clock frequencies.",
+                "Replace multiplication and division with iterative or DSP\u2011block implementations to reduce area.",
+                "Add clock gating or enable signals to cut dynamic power when the ALU is idle.",
+                "Parameterize bit\u2011width and operation set for reuse and potential area savings.",
+                "Use smaller, low\u2011power cells or a faster library to reduce area and leakage."
+            ]
+        }
+    },
+    "alu24": {
+        "functional_analysis": {
+            "module_name": "alu_0002_W16_12cd_z_NP",
+            "description": "16\u2011bit combinational ALU with 12 arithmetic/logic operations and a zero flag. No pipeline or carry flag.",
+            "inputs": [
+                {
+                    "name": "a",
+                    "width": "16",
+                    "type": "wire"
+                },
+                {
+                    "name": "b",
+                    "width": "16",
+                    "type": "wire"
+                },
+                {
+                    "name": "opcode",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "16",
+                    "type": "reg"
+                },
+                {
+                    "name": "zero",
+                    "width": "1",
+                    "type": "reg"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "shift",
+                "mux",
+                "bitwise_or",
+                "bitwise_and",
+                "bitwise_nand",
+                "bitwise_nor",
+                "conditional_negate",
+                "increment",
+                "decrement",
+                "multiply"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational logic expressed with an always @(*) block and a case statement. No clock domain, no registers except output latches.",
+            "optimizations_present": [
+                "case statement for efficient multiplexer synthesis",
+                "combinational implementation to reduce clock tree overhead",
+                "no pipeline to keep latency minimal"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": 4537.615,
+            "power": 0.000199016,
+            "gate_count": 741,
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power are a direct result of the purely combinational implementation and the use of a small 16\u2011bit datapath. The absence of clock gating keeps dynamic power minimal.",
+            "potential_improvements": [
+                "Introduce pipelining to reduce critical path and allow higher clock frequencies",
+                "Replace the 16\u2011bit multiplier with a dedicated DSP block or a more efficient algorithm",
+                "Parameterize the width to support different data sizes without code duplication",
+                "Add clock gating to the output registers for further power savings in low\u2011activity scenarios"
+            ]
+        }
+    },
+    "alu3": {
+        "functional_analysis": {
+            "module_name": "alu3",
+            "description": "32\u2011bit combinational ALU supporting arithmetic, logical, shift, comparison, pass\u2011through and maximum operations with status flags.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "and",
+                "or",
+                "xor",
+                "shift left logical",
+                "shift right logical",
+                "shift right arithmetic",
+                "set less than signed",
+                "set less than unsigned",
+                "pass B",
+                "max"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with case statement; uses dataflow assignments for addition and flag generation; localparam for operation codes.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "6089.260",
+            "power": "3.00516e-04",
+            "gate_count": "1189",
+            "overall_efficiency": "average",
+            "correlations": "Area scales with the number of logic cells (1189) and the complexity of the ALU operations; power is dominated by logic switching (51.26%) with negligible leakage.",
+            "potential_improvements": [
+                "Replace the 32\u2011bit adder with a carry\u2011lookahead or carry\u2011select adder to reduce propagation delay and area.",
+                "Implement shift operations using barrel shifters or multiplexed shifters to reduce gate count.",
+                "Use parameterized width to allow synthesis for smaller data paths when full 32\u2011bit width is not required.",
+                "Add clock gating or power\u2011gating for the result register to reduce dynamic power.",
+                "Consider pipelining the ALU to improve timing and allow higher clock frequencies."
+            ]
+        }
+    },
+    "alu4": {
+        "functional_analysis": {
+            "module_name": "alu4",
+            "description": "A 32\u2011bit combinational ALU that supports addition, subtraction, multiplication, and maximum selection. It also generates status flags for carry, zero, overflow, and sign.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "multiply",
+                "max",
+                "compare",
+                "flag generation"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Uses combinational always block with case statement, localparam for operation codes, and continuous assignments for status flags. No explicit clock or reset logic.",
+            "optimizations_present": [
+                "parameterization via localparam",
+                "combinational logic reuse for addition/subtraction"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "6089.260",
+            "power": "3.00516e-04",
+            "gate_count": "1189",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are dominated by the combinational logic (addition, subtraction, multiplier, and comparator). The multiplier contributes the largest share of area and switching power.",
+            "potential_improvements": [
+                "Parameterize data width to support smaller or larger operands.",
+                "Replace the 32\u2011bit multiplier with a DSP block or a pipelined multiplier to reduce area and power.",
+                "Remove the unused shiftValue input or repurpose it for shift operations.",
+                "Add clock gating or power\u2011gating for the status flag logic.",
+                "Use a more compact encoding for ALUSel to reduce logic fan\u2011out."
+            ]
+        }
+    },
+    "alu5": {
+        "raw_output": "{\n  \"functional_analysis\": {\n    \"module_name\": \"alu5\",\n    \"description\": \"A combinational ALU that performs shift, rotate, and comparison operations on 32\u2011bit operands.\",\n    \"inputs\": [\n      {\"name\": \"input1\", \"width\": \"32\", \"type\": \"wire\"},\n      {\"name\": \"input2\", \"width\": \"32\", \"type\": \"wire\"},\n      {\"name\": \"shiftValue\", \"width\": \"5\", \"type\": \"wire\"},\n      {\"name\": \"ALUSel\", \"width\": \"4\", \"type\": \"wire\"}\n ],\n    \"outputs\": [\n      {\"name\": \"result\", \"width\": \"32\", \"type\": \"reg\"},\n      {\"name\": \"carryFlag\", \"width\": \"1\", \"type\": \"wire\"},\n      {\"name\": \"zeroFlag\", \"width\": \"1\", \"type\": \"wire\"},\n      {\"name\": \"overFlowFlag\", \"width\": \"1\", \"type\": \"wire\"},\n      {\"name\": \"signFlag\", \"width\": \"1\", \"type\": \"wire\"}\n    ],\n    \"key_operations\": [\"shift\", \"rotate\", \"comparison\", \"mux\"]\n  },\n  \"style_analysis\": {\n    \"design_style\": \"behavioral\",\n    \"style_characteristics\": \"Combinational logic expressed with always @(*) and case statement; uses localparam for op codes and functions for rotate operations.\",\n    \"optimizations_present\": [\"parameterization\"]\n  },\n  \"efficiency_analysis\": {\n    \"area\": \"5328.576\",\n    \"power\": \"2.98940e-04\",\n    \"gate_count\": \"N/A\",\n    \"overall_efficiency\": \"highly optimized    \"correlations\": \"Low area and power are consistent with a small, purely combinational design.\",\n    \"potential_improvements\": [\n      \"Use dedicated shift/rotate primitives to reduce logic depth\",\n      \"Add clock gating if the module is later made sequential\",\n      \"Replace custom rotate functions with built\u2011in operators for potential area savings\"\n    ]\n  }\n}"
+    },
+    "alu6": {
+        "functional_analysis": {
+            "module_name": "alu6",
+            "description": "A comparison\u2011heavy ALU that implements set\u2011less\u2011than (signed and unsigned), equality, inequality, maximum, and minimum operations. The result is a 32\u2011bit value and several status flags are generated.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "comparison",
+                "conditional assignment",
+                "multiplexer"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with a case statement, localparam opcodes, and direct flag assignments. No clocking or pipelining.",
+            "optimizations_present": [
+                "parameterization via localparams",
+                "constant flag assignments"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": 1768.875,
+            "power": 8.94162e-05,
+            "gate_count": null,
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power consumption indicate a compact, low\u2011power design, though gate count is not reported.",
+            "potential_improvements": [
+                "Remove unused shiftValue input to reduce pin count",
+                "Eliminate unused carryFlag and overFlowFlag assignments",
+                "Use smaller data types for flags to reduce routing",
+                "Consider parameterizing data width for reuse",
+                "Apply logic synthesis optimizations to merge redundant comparisons"
+            ]
+        }
+    },
+    "alu7": {
+        "raw_output": "{\n  \"functional_analysis\": {\n    \"module_name\": \"alu7\",\n    \"description\": \"A 32\u2011bit arithmetic and logic unit that supports addition, subtraction, multiplication, division, bitwise AND/OR/XOR/NOR, and maximum/minimum selection. It also generates status flags for carry, zero, overflow, and sign.\",\n    \"inputs\": [\n      {\"name\": \"input1\", \"width\": \"32\", \"type\": \"wire\"},\n      {\"name\": \"input2\", \"width\": \"32\", \"type\": \"wire\"},\n      {\"name\": \"shiftValue\", \"width\": \"5\", \"type\": \"wire\"},\n      {\"name\": \"ALUSel\", \"width\": \"4\", \"type\": \"wire\"}\n    ],\n    \"outputs\": [\n      {\"name\": \"result\", \"width\": \"32\", \"type\": \"reg\"},\n      {\"name\": \"carryFlag\", \"width\": \"1\", \"type\": \"wire\"},\n      {\"name\": \"zeroFlag\", \"width\": \"1\", \"type\": \"wire\"},\n      {\"name\": \"overFlowFlag\", \"width\": \"1\", \"type\": \"wire\"},\n      {\"name\": \"signFlag\", \"width\": \"1\", \"type\": \"wire\"}\n    ],\n    \"key_operations\": [\n      \"add\",\n      \"subtract\",\n      \"multiply\",\n      \"divide\",\n      \"and\",\n      \"or\",\n      \"xor\",\n      \"nor\",\n      \"max\",\n      \"min\"\n    ]\n  },\n  \"style_analysis\": {\n    \"design_style\": \"behavioral\",\n    \"style_characteristics\": \"Combinational always block with a case statement, localparam op codes, and direct use of Verilog operators. No structural instantiation or explicit clocking.\",\n    \"optimizations_present\": [\n      \"parameterization\"\n    ]\n  },\n  \"efficiency_analysis\": {\n    \"area\": \"26555.079\",\n    \"power\": \"0.00110046\",\n    \"gate_count\": \"3312\",\n    \"overall_efficiency\": \"high    \"correlations\": \"The area and power figures are low relative to the gate count, indicating a compact and power\u2011efficient implementation.\",\n    \"potential_improvements\": [\n      \"Remove unused shiftValue input to reduce pin count.\",\n      \"Add pipelining or clock gating to further reduce dynamic power.\",\n      \"Replace the 32\u2011bit multiplier/divider with a smaller, more efficient implementation if full 32\u2011bit precision is not required.\",\n      \"Use signed arithmetic for overflow detection to simplify logic.\",\n      \"Consider a dedicated carry\u2011lookahead adder for faster addition/subtraction.\"\n    ]\n  }\n}"
+    },
+    "alu8": {
+        "functional_analysis": {
+            "module_name": "alu8",
+            "description": "8-bit ALU performing shift, rotate, logic, and comparison operations on 32-bit operands.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "wire"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "wire"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "wire"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "reg"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "wire"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "wire"
+                }
+            ],
+            "key_operations": [
+                "shift",
+                "rotate",
+                "logic",
+                "comparison"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with case statement, localparams for operation codes, functions for rotate operations.",
+            "optimizations_present": [
+                "parameterization"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "5973.455",
+            "power": "0.000322",
+            "gate_count": "1193",
+            "overall_efficiency": "highly optimized",
+            "correlations": "Low area and power are directly correlated with the small combinational logic footprint and modest gate count.",
+            "potential_improvements": [
+                "Use a smaller technology library to reduce area and power further.",
+                "Optimize rotate functions to eliminate redundant logic.",
+                "Add pipelining for higher operating frequency if needed.",
+                "Replace MAX/MIN comparators with a priority encoder to reduce logic depth."
+            ]
+        }
+    },
+    "alu9": {
+        "functional_analysis": {
+            "module_name": "alu9",
+            "description": "32\u2011bit ALU that performs addition, subtraction, signed/unsigned comparisons, equality checks, and selects the maximum or minimum of two operands. It also generates status flags for carry, zero, overflow, and sign.",
+            "inputs": [
+                {
+                    "name": "input1",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "input2",
+                    "width": "32",
+                    "type": "input"
+                },
+                {
+                    "name": "shiftValue",
+                    "width": "5",
+                    "type": "input"
+                },
+                {
+                    "name": "ALUSel",
+                    "width": "4",
+                    "type": "input"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "result",
+                    "width": "32",
+                    "type": "output"
+                },
+                {
+                    "name": "carryFlag",
+                    "width": "1",
+                    "type": "output"
+                },
+                {
+                    "name": "zeroFlag",
+                    "width": "1",
+                    "type": "output"
+                },
+                {
+                    "name": "overFlowFlag",
+                    "width": "1",
+                    "type": "output"
+                },
+                {
+                    "name": "signFlag",
+                    "width": "1",
+                    "type": "output"
+                }
+            ],
+            "key_operations": [
+                "add",
+                "subtract",
+                "compare",
+                "mux"
+            ]
+        },
+        "style_analysis": {
+            "design_style": "behavioral",
+            "style_characteristics": "Combinational always block with a case statement, localparam opcode definitions, and direct arithmetic/comparison expressions. The design is written in a high\u2011level, readable style without explicit gate instantiation.",
+            "optimizations_present": [
+                "parameterization (localparam opcodes)",
+                "overflow detection using 33\u2011bit sum"
+            ]
+        },
+        "efficiency_analysis": {
+            "area": "4442.246 (technology units)",
+            "power": "2.10229e-04 W",
+            "gate_count": "unknown",
+            "overall_efficiency": "average",
+            "correlations": "Area and power are modest for a 32\u2011bit combinational ALU; the 33\u2011bit sum for overflow detection adds a small overhead. The unused shiftValue input suggests potential area waste.",
+            "potential_improvements": [
+                "Remove unused shiftValue input to reduce logic",
+                "Replace 33\u2011bit adder with a dedicated carry\u2011chain adder to lower area",
+                "Add clock gating or pipelining for higher clock rates",
+                "Parameterize operand width for reuse in other designs"
+            ]
+        }
+    }
+}
