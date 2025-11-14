@@ -62,7 +62,7 @@ AGENTIC_SYSTEM_FOR_HIGH_EFFICIENCY/
 ### 1️⃣ Clone the Repository  
 
 ```bash
-git clone https://github.com/<your-username>/agentic-system-for-high-efficiency.git
+git clone https://github.com/andhusrinivas/agentic-system-for-high-efficiency.git
 cd agentic-system-for-high-efficiency
 ````
 
